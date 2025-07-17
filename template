@@ -1,0 +1,31 @@
+# Create index.html template
+import os
+os.makedirs("templates", exist_ok=True)
+with open("templates/index.html", "w") as f:
+    f.write("""
+<!doctype html>
+<html>
+<head>
+  <title>Port Scanner</title>
+</head>
+<body>
+  <h2>Simple Port Scanner</h2>
+  <form method="post">
+    Domain/IP: <input name="target"><br>
+    Start Port: <input name="start_port" value="20"><br>
+    End Port: <input name="end_port" value="100"><br>
+    <input type="submit" value="Scan">
+  </form>
+
+  {% if target %}
+    <h3>Results for {{ target }}</h3>
+    <pre>
+PORT     SERVICE
+{% for port, service in results %}
+{{ port }}       {{ service }}
+{% endfor %}
+    </pre>
+  {% endif %}
+</body>
+</html>
+""")
